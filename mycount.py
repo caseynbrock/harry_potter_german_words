@@ -6,26 +6,36 @@ import pandas as pd
 import itertools
 from collections import Counter
 
-# doesn't work with apostrophes yet
 # german stemming, many are repeats with different endings and such
-# remove numbers
 # remove names
-# not sure how accurate the book is
-# account for hyphen line breaks
-# words like undurselyhaft
+# not sure how accurate the book is, some mistakes including Ho gwarts on page 105, Lred
+# non-dictionary words like undurselyhaft, aaaargh
 # very slight differences, but same number of pages
-# common for pages to end in hyphen
-# some mistakes including Ho gwarts on page 105
-#test suite
-#lines 145 for quotes
-#first line for periods
+
+# test suite
+# lines 145 for quotes
+# first line for periods
 
 '''
 see format_harry_poter doc string for info on how book text needs to be formatted
 '''
 
 class Book(object):
-
+    '''
+    attributes
+    ---------
+    pages:            list of pages, where each page is a list of words on that page.
+    known_words:      optional list of words already learned
+    word_list:        ordered list of all words in book, duplicates included
+    total_words:      total number of words in book, duplicated included
+    word_set:         set of all unique words in book
+    num_unique_words: number of unique words in book
+    word_data:        pandas data frame containing data for each word, columns described below
+        index - word in lower case
+        count - number of occurences of word in book
+        learned - whether or not word has been learned (based on known_words list)
+        page - page number of first occurence of word
+    '''
     def __init__(self, pages, known_words=[]):
         self.pages = pages
         self.known_words = known_words
