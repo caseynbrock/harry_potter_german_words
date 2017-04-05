@@ -73,7 +73,7 @@ class Book(object):
 def read_known_word_list(filename):
     with open(filename) as f:
         known_words = f.readlines()
-    known_words = [word.lower().strip() for word in known_words]
+    known_words = [word.lower().strip().decode("utf-8") for word in known_words]
     return known_words
 
 def format_harry_potter(filename):
