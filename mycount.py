@@ -41,7 +41,7 @@ class Book(object):
     word_data:        pandas data frame containing data for each word, columns
                       described below
         index - word in lower case
-        count - number of occurences of word in book
+        word_count - number of occurences of word in book
         learned - whether or not word has been learned (based on known_words
             list)
         page - page number of first occurence of word
@@ -63,8 +63,8 @@ class Book(object):
 
     def _initialize_data_frame(self):
         df = pd.DataFrame.from_dict(Counter(self.word_list), orient='index')
-        df = df.rename(columns={'index': 'word', 0: 'count'}).sort_values(
-                'count', ascending=False)
+        df = df.rename(columns={'index': 'word', 0: 'word_count'}).sort_values(
+                'word_count', ascending=False)
         return df
 
     def _set_known_words(self):
