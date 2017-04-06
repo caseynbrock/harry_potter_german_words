@@ -33,11 +33,16 @@ class Book(object):
     ---------
     pages:            list of pages, where each page is a list of words on that
                       page.
-    known_words:      optional list of words already learned
+
     word_list:        ordered list of all words in book, duplicates included
-    total_words:      total number of words in book, duplicated included
     word_set:         set of all unique words in book
-    num_unique_words: number of unique words in book
+    known_words:      optional list of words already learned
+
+    n_total_words:    total number of words in book, duplicates included
+    n_unique_words:   number of unique words in book
+    n_known_book_words:number of unique words in book that are in known_words,
+                      set of (known_words & word_set)
+
     word_data:        pandas data frame containing data for each word, columns
                       described below
         index - word in lower case
@@ -52,14 +57,16 @@ class Book(object):
         self.pages = pages
         self.known_words = known_words
         self.word_list = list(itertools.chain.from_iterable(pages))
-        self.total_words = len(self.word_list)
+        self.n_total_words = len(self.word_list)
         self.word_set = set(self.word_list)
-        self.num_unique_words = len(self.word_set)
+        self.n_unique_words = len(self.word_set)
+        self.n_known_book_words = len(set(self.known_words) & self.word_set)
         self.word_data = self._initialize_data_frame()
         self._set_known_words()
         self._set_page_numbers()
-        print('Total number of words: ', self.total_words)
-        print('Number of unique words: ', self.num_unique_words)
+        print('Total number of words: ', self.n_total_words)
+        print('Number of unique words: ', self.n_unique_words)
+        print('Number of known words in book: ', self.n_known_book_words)
 
     def _initialize_data_frame(self):
         df = pd.DataFrame.from_dict(Counter(self.word_list), orient='index')
