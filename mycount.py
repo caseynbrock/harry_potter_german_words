@@ -58,8 +58,8 @@ class Book(object):
         self.word_data = self._initialize_data_frame()
         self._set_known_words()
         self._set_page_numbers()
-        print 'Total number of words: ', self.total_words
-        print 'Number of unique words: ', self.num_unique_words
+        print('Total number of words: ', self.total_words)
+        print('Number of unique words: ', self.num_unique_words)
 
     def _initialize_data_frame(self):
         df = pd.DataFrame.from_dict(Counter(self.word_list), orient='index')
